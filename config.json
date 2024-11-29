@@ -1,0 +1,13 @@
+{
+    "botToken": "8131456639:AAGQydCUV-mKYevL4ay7Y1ZOWmhVq66gMOE",
+    "studentUrl": "http://127.0.0.1/company/hs/telegram/student",
+    "userAuthorization": "ИвановИИ:",
+    "emailRegular": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",
+    "messages": {
+        "startCommand": "Для привязки почты к телеграмму используйте команду /link",
+        "getUserError": "Ошибка при получении данных о пользователе",
+        "emailNotSpecified": "Для команды /link необходимо указать почту",
+        "lineIsNotEmail": "Данная строка не является почтой",
+        "bindingError": "При привязке произошла ошибка"
+    }
+}

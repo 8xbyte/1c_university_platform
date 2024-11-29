@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["micmaclaynd <101046221+micmaclaynd@users.noreply.github.com>"]
+
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiogram = "^3.15.0"
+requests = "^2.32.3"
+
+
+[tool.poetry.scripts]
+start = "app.main:run"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

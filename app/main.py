@@ -28,22 +28,38 @@ async def main() -> None:
             await message.answer(Config.get_user_error)
         else:
             if args:
-                match = re.match(Config.email_regular, args)
+                split_args = args.split()
 
-                if match:
-                    response = requests.post(
-                        Config.student_url,
-                        json={"email": args, "telegram": str(message.from_user.id)},
-                        headers={
-                            "Authorization": f"Basic {base64.b64encode(Config.user_authorization.encode()).decode()}"
-                        },
-                    )
-                    if response.status_code != 200:
-                        await message.answer(Config.binding_error)
+                if len(split_args) == 2:
+                    email, guid = split_args
+                    email_match = re.match(Config.email_regular, email)
+                    guid_match = re.match(Config.guid_regular, guid)
+
+                    if not email_match:
+                        await message.answer(Config.line_is_not_email)
+                    elif not guid_match:
+                        await message.answer(Config.line_is_not_guid)
+                    else:                        
+                        response = requests.post(
+                            Config.student_url,
+                            json={
+                                "email": email,
+                                "telegram": str(message.from_user.id),
+                                "guid": guid,
+                            },
+                            headers={
+                                "Authorization": f"Basic {base64.b64encode(Config.user_authorization.encode()).decode()}"
+                            },
+                        )
+                        if response.status_code != 200:
+                            if response.status_code == 401:
+                                await message.answer(Config.wrong_guid)
+                            else:
+                                await message.answer(Config.binding_error)
                 else:
-                    await message.answer(Config.line_is_not_email)
+                    await message.answer(Config.not_enough_arguments)
             else:
-                await message.answer(Config.email_not_specified)
+                await message.answer(Config.arguments_not_specified)
 
     await dispatcher.start_polling(bot)
 
